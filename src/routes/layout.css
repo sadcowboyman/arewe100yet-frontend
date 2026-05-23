@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+
+@theme {
+  --color-background-orange: #ebd9c1; 
+}
