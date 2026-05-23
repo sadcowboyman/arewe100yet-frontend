@@ -159,7 +159,7 @@
           <h1 class="text-5xl sm:text-7xl font-black uppercase tracking-tighter m-0 leading-none">
             AREWE<span class="text-orange-500">100</span>YET<span class="text-neutral-400 font-normal text-2xl">.IN</span>
           </h1>
-          <p class="text-xs sm:text-sm font-sans font-bold text-neutral-500 mt-1.5 tracking-wide">Live countdown to 100 Rupees.</p>
+          <p class="text-xs sm:text-sm font-sans font-bold text-neutral-500 mt-1.5 tracking-wide">A countdown to 100 Rupees per 1 Dollar.</p>
         </div>
       </header>
 
