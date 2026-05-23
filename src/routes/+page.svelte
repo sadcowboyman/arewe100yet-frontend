@@ -117,7 +117,7 @@
         errorMessage = data.errors ? data.errors.map(err => err.message).join(', ') : 'Something went wrong. Please try again.';
       }
     } catch (err) {
-      errorMessage = 'Network error. Please check your internet connection.';
+      errorMessage = "Oops! We encountered a small hiccup on our side. Please try again after some time.";
     } finally {
       isSubmitting = false;
     }
