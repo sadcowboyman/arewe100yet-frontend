@@ -190,7 +190,7 @@
         <!-- THE BLACK BAR & PARAGRAPH INFO -->
         <div class="border-t-4 border-black pt-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-6">
           <p class="text-sm sm:text-base font-sans font-semibold text-neutral-700 max-w-lg leading-relaxed">
-            The Indian Rupee is breaking records. After starting the year at 90 in January, it is climbing quickly toward 100. This page tracks how close we are getting to 100 Rupees for 1 US Dollar.
+            The Indian Rupee is hitting historic lows. After starting the year at ₹90 per USD in January, it is sliding quickly toward the ₹100 mark. This page tracks the countdown to 100 Rupees per US Dollar.
           </p>
         </div>
       </div>
