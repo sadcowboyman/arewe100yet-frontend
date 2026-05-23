@@ -228,47 +228,61 @@
       <div></div>
     </section>
 
-    <!-- HERO BAND 3: CHART TIMELINE DISPLAY -->
-    <section class="w-full min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-16 box-border bg-[#fdfdfd] border-b-[10px] border-black">
-      <div class="text-xs font-black text-neutral-400 tracking-widest uppercase">// PAST RATES</div>
+<!-- HERO BAND 3: CHART TIMELINE DISPLAY -->
+  <section class="w-full min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-16 box-border bg-[#fdfdfd] border-b-[10px] border-black">
+    <div class="text-xs font-black text-neutral-400 tracking-widest uppercase">// PAST RATES</div>
 
-      <div class="my-auto max-w-6xl w-full mx-auto space-y-8 py-12">
-        <div class="border-b-4 border-black pb-4">
-          <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tighter flex items-center gap-4">
-            <span class="w-5 h-5 bg-orange-500 inline-block"></span> THE RUPEE OVER TIME
-          </h2>
-          <p class="text-xs sm:text-sm font-sans font-bold text-neutral-500 mt-1 tracking-wide">Tracking the daily changes over time.</p>
-        </div>
-
-        <div class="w-full overflow-x-auto pt-8 pb-4">
-          <!-- Added overflow-visible to prevent cutting off any text rendering outside the boundary -->
-          <svg viewBox="0 0 640 220" class="w-full min-w-[640px] h-auto block overflow-visible">
-            <!-- Shifted bounds to match the updated graph width (35 to 605) -->
-            <line x1="35" y1="20" x2="605" y2="20" stroke="#000" stroke-width="2.5" stroke-dasharray="4 4" class="opacity-[0.15]" />
-            <text x="612" y="24" class="text-[11px] font-black fill-orange-600" text-anchor="start">100.0 CEILING</text>
-            
-            <line x1="35" y1="90" x2="605" y2="90" stroke="#000" stroke-width="2.5" stroke-dasharray="4 4" class="opacity-[0.15]" />
-            <text x="612" y="94" class="text-[11px] font-black fill-neutral-400" text-anchor="start">94.0 MID</text>
-            
-            <line x1="35" y1="160" x2="605" y2="160" stroke="#000" stroke-width="2.5" stroke-dasharray="4 4" class="opacity-[0.15]" />
-            <text x="612" y="164" class="text-[11px] font-black fill-neutral-400" text-anchor="start">88.0 BASE</text>
-
-            <polyline fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="square" points={pointsStr} />
-
-            {#each history as point, i}
-              <!-- Proportional positioning shifted slightly inward to create a safety margin for text strings -->
-              {@const x = (i * (570 / (history.length - 1)) + 35)}
-              {@const y = getSvgY(point.rate)}
-              <circle cx={x} cy={y} r="8" class="fill-white stroke-black stroke-2" />
-              <text x={x} y={y - 18} class="text-xs font-black fill-black" text-anchor="middle">₹{point.rate.toFixed(2)}</text>
-              <text x={x} y="212" class="text-[10px] uppercase font-black fill-neutral-400" text-anchor="middle">{point.date}</text>
-            {/each}
-          </svg>
-        </div>
+    <div class="my-auto max-w-6xl w-full mx-auto space-y-8 py-12">
+      <div class="border-b-4 border-black pb-4">
+        <h2 class="text-3xl sm:text-5xl font-black uppercase tracking-tighter flex items-center gap-4">
+          <span class="w-5 h-5 bg-orange-500 inline-block"></span> THE RUPEE OVER TIME
+        </h2>
+        <p class="text-xs sm:text-sm font-sans font-bold text-neutral-500 mt-1 tracking-wide">Tracking the daily changes over time.</p>
       </div>
 
-      <div class="text-xs font-sans text-neutral-400 font-bold">Numbers update once every day.</div>
-    </section>
+      <div class="w-full overflow-x-auto pt-8 pb-4">
+        <!-- FIXED: Increased viewBox width to 660 to give right side text its own spacious margin -->
+        <svg viewBox="0 0 660 235" class="w-full min-w-[660px] h-auto block overflow-visible">
+          <defs>
+            <!-- Mask boundary matches your original line span perfectly -->
+            <clipPath id="chart-boundary">
+              <rect x="35" y="0" width="570" height="235" />
+            </clipPath>
+          </defs>
+
+          <!-- TARGET GUIDE RAILS -->
+          <line x1="35" y1="20" x2="605" y2="20" stroke="#000" stroke-width="2.5" stroke-dasharray="4 4" class="opacity-[0.15]" />
+          <!-- FIXED: Pushed x out to 620 to add distinct padding between the line edge and ceiling text -->
+          <text x="620" y="24" class="text-[11px] font-black fill-orange-600" text-anchor="start">100.0</text>
+          
+          <line x1="35" y1="90" x2="605" y2="90" stroke="#000" stroke-width="2.5" stroke-dasharray="4 4" class="opacity-[0.15]" />
+          <text x="620" y="94" class="text-[11px] font-black fill-neutral-400" text-anchor="start">94.0</text>
+          
+          <line x1="35" y1="160" x2="605" y2="160" stroke="#000" stroke-width="2.5" stroke-dasharray="4 4" class="opacity-[0.15]" />
+          <text x="620" y="164" class="text-[11px] font-black fill-neutral-400" text-anchor="start">88.0</text>
+
+          <!-- MAIN POLYLINE GRAPH TRACK -->
+          <g clip-path="url(#chart-boundary)">
+            <polyline fill="none" stroke="#f97316" stroke-width="6" stroke-linecap="square" points={pointsStr} />
+          </g>
+
+          {#each history as point, i}
+            <!-- RESTORED: Your original clean mathematical point positioning -->
+            {@const x = (i * (570 / (history.length - 1)) + 35)}
+            {@const y = getSvgY(point.rate)}
+            
+            <circle cx={x} cy={y} r="8" class="fill-white stroke-black stroke-2" />
+            <text x={x} y={y - 18} class="text-xs font-black fill-black" text-anchor="middle">₹{point.rate.toFixed(2)}</text>
+            
+            <!-- FIXED: Shifted bottom date rendering context down to y="222" for vertical padding from the plot area -->
+            <text x={x} y="222" class="text-[10px] uppercase font-black fill-neutral-400" text-anchor="middle">{point.date}</text>
+          {/each}
+        </svg>
+      </div>
+    </div>
+
+    <div class="text-xs font-sans text-neutral-400 font-bold">Numbers update once every day.</div>
+  </section>
 
     <!-- HERO BAND 4 -->
     <section class="w-full min-h-screen flex flex-col justify-between p-6 sm:p-10 md:p-16 box-border bg-black text-white relative">
